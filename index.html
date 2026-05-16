@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Pihu 💖</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+
+body{
+background:#0b0014;
+color:white;
+overflow:hidden;
+}
+
+/* NAV */
+nav{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:rgba(0,0,0,0.6);
+padding:10px;
+z-index:100;
+}
+
+nav button{
+background:none;
+border:none;
+color:white;
+font-size:14px;
+cursor:pointer;
+}
+
+/* PAGE SYSTEM */
+.page{
+position:absolute;
+width:100%;
+height:100%;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+animation:fade 0.5s ease;
+}
+
+.page.active{display:flex;}
+
+@keyframes fade{
+from{opacity:0;transform:scale(0.98);}
+to{opacity:1;transform:scale(1);}
+}
+
+/* FLOATING BG */
+.float{
+position:absolute;
+width:10px;
+height:10px;
+border-radius:50%;
+background:#ff4d6d;
+opacity:0.4;
+animation:rise linear infinite;
+}
+
+@keyframes rise{
+to{transform:translateY(-120vh);}
+}
+
+/* HOME */
+h1{
+font-size:2.8em;
+color:#ff4d6d;
+text-shadow:0 0 20px #ff4d6d;
+animation:pop 1.5s infinite alternate;
+}
+
+@keyframes pop{
+from{transform:scale(1);}
+to{transform:scale(1.1);}
+}
+
+.subtitle{
+margin-top:10px;
+opacity:0.85;
+}
+
+/* CAKE */
+.cake{
+margin-top:20px;
+filter:drop-shadow(0 0 20px pink);
+}
+
+.layer{
+width:180px;
+height:40px;
+margin:5px auto;
+border-radius:10px;
+}
+
+.l1{background:#ff4d6d;}
+.l2{background:#ffd166;}
+.l3{background:#4cc9f0;}
+
+.candle{width:10px;height:40px;background:white;margin:auto;}
+.flame{width:15px;height:15px;background:gold;border-radius:50%;margin:auto;animation:flick 0.2s infinite;}
+@keyframes flick{50%{transform:scale(1.3);}}
+
+/* WISHES */
+#wishText{
+font-size:1.2em;
+border-right:2px solid white;
+white-space:nowrap;
+overflow:hidden;
+width:0;
+animation:type 5s steps(40,end) forwards, blink .7s infinite;
+}
+
+@keyframes type{to{width:100%;}}
+@keyframes blink{50%{border-color:transparent;}}
+
+/* MEMORIES */
+.card{
+width:80px;
+height:80px;
+background:rgba(255,255,255,0.1);
+margin:10px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+animation:bounce 2s infinite alternate;
+}
+
+@keyframes bounce{
+from{transform:translateY(0);}
+to{transform:translateY(-10px);}
+}
+
+/* MUSIC */
+#musicBtn{
+position:fixed;
+top:10px;
+right:10px;
+z-index:200;
+padding:10px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* CANVAS */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:1;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<button id="musicBtn">🎵 Music</button>
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<canvas id="fx"></canvas>
+
+<!-- NAV -->
+<nav>
+<button onclick="show('home')">🏠 Home</button>
+<button onclick="show('cake')">🎂 Cake</button>
+<button onclick="show('wish')">💌 Wishes</button>
+<button onclick="show('memories')">🖼️ Memories</button>
+<button onclick="show('party')">🎆 Party</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+<h1>🎉 Happy Birthday Pihu 🎉</h1>
+<div class="subtitle">Wishing you a magical day full of love 💖</div>
+</div>
+
+<!-- CAKE -->
+<div id="cake" class="page">
+<div class="cake">
+<div class="flame"></div>
+<div class="candle"></div>
+<div class="layer l1"></div>
+<div class="layer l2"></div>
+<div class="layer l3"></div>
+</div>
+<div class="subtitle">Make a wish, Pihu 🎂✨</div>
+</div>
+
+<!-- WISHES -->
+<div id="wish" class="page">
+<div id="wishText">Pihu, you are the most special star in this universe ✨</div>
+</div>
+
+<!-- MEMORIES -->
+<div id="memories" class="page">
+<div style="display:flex;flex-wrap:wrap;justify-content:center;">
+<div class="card">💖</div>
+<div class="card">🎂</div>
+<div class="card">🎉</div>
+<div class="card">✨</div>
+</div>
+</div>
+
+<!-- PARTY -->
+<div id="party" class="page">
+<h1>🎆 Party Time Pihu 🎆</h1>
+<div class="subtitle">Click anywhere for fireworks ✨</div>
+</div>
+
+<script>
+
+/* PAGE SWITCH */
+function show(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+/* MUSIC */
+document.getElementById("musicBtn").onclick=()=>{
+let m=document.getElementById("music");
+m.paused ? m.play() : m.pause();
+};
+
+/* FLOATING HEART DOTS */
+for(let i=0;i<80;i++){
+let d=document.createElement("div");
+d.className="float";
+d.style.left=Math.random()*100+"vw";
+d.style.bottom="-10px";
+d.style.animationDuration=(4+Math.random()*6)+"s";
+document.body.appendChild(d);
+}
+
+/* FIREWORKS */
+const canvas=document.getElementById("fx");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let particles=[];
+
+function boom(x,y){
+for(let i=0;i<50;i++){
+particles.push({
+x,y,
+vx:(Math.random()-0.5)*6,
+vy:(Math.random()-0.5)*6,
+a:1
+});
+}
+}
+
+function animate(){
+ctx.fillStyle="rgba(0,0,0,0.15)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+particles.forEach((p,i)=>{
+p.x+=p.vx;
+p.y+=p.vy;
+p.a-=0.02;
+
+ctx.fillStyle=`rgba(255,105,180,${p.a})`;
+ctx.fillRect(p.x,p.y,3,3);
+
+if(p.a<=0)particles.splice(i,1);
+});
+
+requestAnimationFrame(animate);
+}
+animate();
+
+/* CLICK FIREWORKS ONLY IN PARTY */
+canvas.addEventListener("click",(e)=>{
+if(document.getElementById("party").classList.contains("active")){
+boom(e.clientX,e.clientY);
+}
+});
+
+/* AUTO FIREWORKS */
+setInterval(()=>{
+if(document.getElementById("party").classList.contains("active")){
+boom(Math.random()*innerWidth,Math.random()*innerHeight/2);
+}
+},1200);
+
+</script>
+
+</body>
+</html>
